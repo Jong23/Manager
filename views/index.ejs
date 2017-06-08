@@ -4,6 +4,7 @@
 	<ul>
 	<% plays.forEach(function(play){ %>
 		<li>
+			Minute <%= play.minutes  %> :  
 			<%= play.name %> (<%= play.position %>) 
 			<% if(play.defender) {%>
 				im Zweikampf gegen <%= play.defender.name %> (<%= play.defenderPosition %>)

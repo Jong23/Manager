@@ -1,6 +1,6 @@
 {
 	"TW" : [{
-		"type": "short_pass",
+		"type": "shortPass",
 		"baseChance": 50,
 		"targets": [{
 			"position": "LAV",
@@ -10,7 +10,7 @@
 			"baseChance" : 50
 		}]
 	},{
-		"type": "long_pass",
+		"type": "longPass",
 		"baseChance": 0,
 		"targets": [{
 			"position": "LAV",
@@ -21,7 +21,7 @@
 		}]
 	}],
 	"LIV" : [{
-		"type": "short_Pass",
+		"type": "shortPass",
 		"baseChance": 100,
 		"targets": [{
 			"position": "LAV",
@@ -29,8 +29,8 @@
 		}]
 	}],
 	"LAV" : [{
-		"type": 100,
-		"description": "short_Pass",
+		"baseChance": 100,
+		"type": "shortPass",
 		"targets": [{
 			"position": "LIV",
 			"baseChance" : 100

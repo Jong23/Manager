@@ -1,5 +1,7 @@
 module.exports = {
 	Game: function(){
+		this.minutes = 0;
+		this.seconds = 0;
 		var team1 = require('./config/Team1.json');
 		var team2 = require('./config/Team2.json');
 		var actions = require('./config/Actions.json');
@@ -48,16 +50,17 @@ module.exports = {
 						}
 						var factor = modifier.factor || 1;
 						chance += Math.floor(factor * source[modifier.value]);
-
 					});
 				}
-				return chance = item.baseChance;
+				if(chance < 0){
+					return 0;
+				}
+				return chance;
 			}
 		}
 
 		function getDefenderPosition(positionWithBall, team){
 			var possibleDefensePositions = positions[positionWithBall].defenders;
-			console.log(possibleDefensePositions);
 			if(!possibleDefensePositions){
 				return; // no defender for goalkeeper
 			}
@@ -69,13 +72,33 @@ module.exports = {
 			});
 			return selectFromBaseChance(validatedDefensePositions).position;
 		}
-		this.getPlays= function(){
+
+		function getValidOutcomes(outcomes, defender, targetDefender){
+			var validOutcomes = [];
+			outcomes.forEach(function(outcome){
+				if(outcome.playerWithBall === "D" && defender === undefined){
+					return;
+				}
+				if(outcome.playerWithBall === "tD" && targetDefender === undefined){
+					return;
+				}
+				validOutcomes.push(outcome);
+			});
+			return validOutcomes;
+		}
+		this.addSeconds = function(addSeconds){
+			var totalSeconds = this.seconds + addSeconds;
+			var addMinutes = Math.floor(totalSeconds / 60);
+			this.minutes += addMinutes;
+			this.seconds = totalSeconds - (addMinutes*60);
+		}
+		this.getPlays = function(){
 			var plays = [];
 			var positionWithBall = "TW";
 			var teamWithBall = team1;
 			var teamWithOutBall = team2;
-
-			while(playerActions[positionWithBall] && plays.length < 10){
+			while(playerActions[positionWithBall] && this.minutes <= 90){
+				this.addSeconds(10 + Math.random()*30);
 				var playerWithBall = teamWithBall[positionWithBall]
 				var playerAction = selectFromBaseChance(playerActions[positionWithBall], playerWithBall.stats);
 				var defenderPosition = getDefenderPosition(positionWithBall, teamWithOutBall);
@@ -83,12 +106,14 @@ module.exports = {
 				var action = actions[playerAction.type];
 				var targetPosition = selectFromBaseChance(playerAction.targets, playerWithBall).position;
 				var targetPlayer = teamWithBall[targetPosition];
-				var targetDefederPosition = getDefenderPosition(targetPosition, teamWithOutBall);
-				var targetDefender = teamWithOutBall[targetDefederPosition];
+				var targetDefenderPosition = getDefenderPosition(targetPosition, teamWithOutBall);
+				var targetDefender = teamWithOutBall[targetDefenderPosition];
+				var validOutcomes = getValidOutcomes(action.outcomes, defender, targetDefender);
 				var outcome = selectFromBaseChance(action.outcomes, playerWithBall.stats, undefined, targetPlayer.stats); 
 
-				console.log(targetDefederPosition);
 				var play = {
+					minutes: this.minutes,
+					seconds: this.seconds,
 					position : positionWithBall,
 					name : teamWithBall[positionWithBall].name,
 					action : action.description,
@@ -98,9 +123,30 @@ module.exports = {
 					defender: defender,
 					defenderPosition: defenderPosition,
 					targetDefender: targetDefender,
-					targetDefenderPosition: targetDefederPosition
+					targetDefenderPosition: targetDefenderPosition
 				};
 				plays.push(play);
+
+				// setup new play
+				switch (outcome.playerWithBall) {
+					case "P" : 
+						break;
+					case "tP" : 
+						positionWithBall = targetPosition;
+						break;
+					case "D" : 
+						positionWithBall = defenderPosition;
+						var oldTeamWithBall = teamWithBall;
+						teamWithBall = teamWithOutBall;
+						teamWithOutBall = oldTeamWithBall;
+						break;
+					case "tD" : 
+						positionWithBall = targetDefenderPosition;
+						var oldTeamWithBall = teamWithBall;
+						teamWithBall = teamWithOutBall;
+						teamWithOutBall = oldTeamWithBall;
+						break;
+				}			
 			}
 			return plays;
 		};

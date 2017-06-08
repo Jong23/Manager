@@ -1,5 +1,5 @@
 {
-	"short_pass": {
+	"shortPass": {
 		"description": "einen kurzen Pass",
 		"outcomes": [{
 			"description" : "Der Pass kommt an.",
@@ -12,18 +12,20 @@
 				"source": "P",
 				"value": "shortPass",
 				"factor": 0.5
-			}]
+			}],
+			"playerWithBall" : "tP"
 		}, {
 			"description" : "Der Pass geht zum Gegner.",
-			"baseChance": 50,
+			"baseChance": 70,
 			"modifiers": [{
 				"source" : "P",
 				"value" : "shortPass",
-				"factor": -0.5
-			}]
+				"factor": -1.0
+			}],
+			"playerWithBall" : "tD"
 		}]
 	},
-	"long_pass": {
+	"longPass": {
 		"description": "long pass",
 		"outcomes": [{
 			"description" : "angekommen",

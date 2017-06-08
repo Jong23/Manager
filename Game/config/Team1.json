@@ -3,20 +3,20 @@
 		"name" : "Torwart1",
 		"stats" : {
 			"longPass": 50,
-			"shortPass": 50
+			"shortPass": 70
 		}
 	},
 	"LAV" : {
 		"name": "LAV1",
 		"stats": {
-			"shortPass": 50,
+			"shortPass": 80,
 			"ballControl": 1000
 		}
 	},
 	"LIV": {
 		"name": "LIV1",
 		"stats": {
-			"shortPass": 50,
+			"shortPass": 80,
 			"ballControl": 20
 		}
 	}
