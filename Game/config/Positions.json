@@ -1,0 +1,29 @@
+{
+	"TW": {
+
+	},
+	"LAV": {
+		"defenders": [{
+			"position": "RM",
+			"baseChance": 50
+		},{
+			"position": "RS",
+			"baseChance": 10
+		},{
+			"position": "ROM",
+			"baseChance": 50
+		}]
+	},
+	"LV": {
+
+	},
+	"LIV": {
+		"defenders": [{
+			"position": "RM",
+			"baseChance": 10
+		},{
+			"position": "RS",
+			"baseChance": 100
+		}]
+	}
+}

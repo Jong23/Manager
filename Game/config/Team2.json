@@ -1,0 +1,14 @@
+{
+	"RM" : {
+		"name": "RM2",
+		"stats": {
+			"tackling": 20
+		}
+	},
+	"RS": {
+		"name" : "RS2",
+		"stats": {
+			"tackling": 20
+		}
+	}
+}

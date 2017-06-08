@@ -1,0 +1,20 @@
+<% include header%>
+
+	<h1><%= title %></h1>
+	<ul>
+	<% plays.forEach(function(play){ %>
+		<li>
+			<%= play.name %> (<%= play.position %>) 
+			<% if(play.defender) {%>
+				im Zweikampf gegen <%= play.defender.name %> (<%= play.defenderPosition %>)
+			<% } %>
+			macht <%= play.action %> zu <%= play.targetName %> 
+			<% if(play.targetDefender) {%>
+				im Zweikampf gegen <%= play.targetDefender.name %> (<%= play.targetDefenderPosition %>)
+			<% } %>
+			: <%= play.outcome %>
+		</li>
+	<% }) %>
+	</ul>
+
+<% include footer%>

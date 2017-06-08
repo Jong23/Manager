@@ -1,0 +1,39 @@
+{
+	"TW" : [{
+		"type": "short_pass",
+		"baseChance": 50,
+		"targets": [{
+			"position": "LAV",
+			"baseChance" : 50
+		},{
+			"position": "LIV",
+			"baseChance" : 50
+		}]
+	},{
+		"type": "long_pass",
+		"baseChance": 0,
+		"targets": [{
+			"position": "LAV",
+			"baseChance" : 50
+		},{
+			"position": "LIV",
+			"baseChance" : 50
+		}]
+	}],
+	"LIV" : [{
+		"type": "short_Pass",
+		"baseChance": 100,
+		"targets": [{
+			"position": "LAV",
+			"baseChance" : 100
+		}]
+	}],
+	"LAV" : [{
+		"type": 100,
+		"description": "short_Pass",
+		"targets": [{
+			"position": "LIV",
+			"baseChance" : 100
+		}]
+	}]
+}
